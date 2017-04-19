@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import ru.mobilization.demo.translator.R;
+import ru.mobilization.demo.translator.Views.Fragments.FavouritesFragment;
+import ru.mobilization.demo.translator.Views.Fragments.HistoryFragment;
 import ru.mobilization.demo.translator.Views.Fragments.TranslatorFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,10 +27,10 @@ public class MainActivity extends AppCompatActivity {
                     fragmentManager.beginTransaction().replace(R.id.container, new TranslatorFragment()).commit();
                     return true;
                 case R.id.navigation_history:
-//                    mTextMessage.setText(R.string.title_history);
+                    fragmentManager.beginTransaction().replace(R.id.container, new HistoryFragment()).commit();
                     return true;
                 case R.id.navigation_favourites:
-//                    mTextMessage.setText(R.string.title_favourites);
+                    fragmentManager.beginTransaction().replace(R.id.container, new FavouritesFragment()).commit();
                     return true;
             }
             return false;
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.container, new TranslatorFragment()).commit();
     }
 
 }

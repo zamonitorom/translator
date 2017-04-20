@@ -1,0 +1,22 @@
+    public Observable<Object> getTranslate(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl("https://translate.yandex.net")
+                .client(getUnsafeOkHttpClient())
+                .build();
+
+        authService = retrofit.create(AuthService.class);
+        HashMap<String,String> query = new HashMap<>();
+        query.put("lang","en-ru");
+        query.put("key","trnsl.1.1.20170420T144606Z.543f8a29067f6714.5bd2c9ea2764197909d38cb0548292aa34b6adfb");
+        query.put("text","hello moto");
+        HashMap<String,String> field = new HashMap<>();
+//        field.put("test","hello moto");
+        return authService.getTranslate(query,field);
+    }
+    
+    
+        @FormUrlEncoded
+    @POST("/api/v1.5/tr.json/translate")
+    Observable<Object> getTranslate(@QueryMap Map<String,String> query,@FieldMap Map<String,String> field);

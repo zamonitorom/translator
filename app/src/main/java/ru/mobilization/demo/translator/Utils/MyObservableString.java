@@ -10,7 +10,7 @@ public class MyObservableString extends BaseObservable {
     }
 
     public void set(String value) {
-        if (equals(this.value, value) == false) {
+        if (!equals(this.value, value)) {
             this.value = value;
             notifyChange();
         }

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="item"
+            type="ru.mobilization.demo.translator.ViewModels.ItemLangViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:onClick="@{item::click}">
+        <ImageView
+            android:layout_width="2dp"
+            android:layout_height="10dp"
+            android:padding="3dp"
+            android:layout_gravity="center_vertical"
+            android:background="#998899"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="@{item.title}"/>
+
+    </LinearLayout>
+
+</layout>

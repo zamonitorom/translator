@@ -28,10 +28,10 @@ public class MainActivity extends AppCompatActivity {
                     fragmentManager.beginTransaction().replace(R.id.container, new TranslatorFragment()).commit();
                     return true;
                 case R.id.navigation_history:
-                    fragmentManager.beginTransaction().replace(R.id.container, historyFragment).commit();
+                    fragmentManager.beginTransaction().replace(R.id.container, new HistoryFragment(true)).commit();
                     return true;
                 case R.id.navigation_favourites:
-                    fragmentManager.beginTransaction().replace(R.id.container, historyFragment).commit();
+                    fragmentManager.beginTransaction().replace(R.id.container, new HistoryFragment(false)).commit();
                     return true;
             }
             return false;
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container, new TranslatorFragment()).commit();
-        historyFragment = new HistoryFragment();
+//        historyFragment = new HistoryFragment();
     }
 
 }

@@ -19,6 +19,13 @@ import ru.mobilization.demo.translator.databinding.FragmentHistoryBinding;
 public class HistoryFragment extends Fragment {
 
     private FragmentHistoryBinding binding;
+    private HistoryViewModel historyViewModel;
+    private Boolean showAll;
+
+    public HistoryFragment(Boolean val) {
+        showAll = val;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,10 +42,9 @@ public class HistoryFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        HistoryViewModel historyViewModel = new HistoryViewModel();
+        historyViewModel = new HistoryViewModel(showAll);
         binding.setHistoryVM(historyViewModel);
 
     }
-
 
 }

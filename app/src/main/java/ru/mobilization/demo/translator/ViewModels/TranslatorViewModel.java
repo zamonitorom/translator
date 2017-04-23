@@ -125,7 +125,11 @@ public class TranslatorViewModel extends BaseObservable {
         }
         stringObservable()
                 .debounce(2000, TimeUnit.MILLISECONDS)
-                .flatMap(s -> dataService.getWord(langFrom.getCode(), langTo.getCode(), textFrom.get()))
+                .flatMap(s -> {
+                    if (!textFrom.get().equals("")) {
+                        return dataService.getWord(langFrom.getCode(), langTo.getCode(), textFrom.get());
+                    }else return Observable.just("");
+                })
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s -> {

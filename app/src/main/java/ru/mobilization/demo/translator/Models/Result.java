@@ -16,13 +16,16 @@ public class Result extends RealmObject {
     @Required
     private Boolean isFavour;
 
+    private String direction;
+
     public Result() {
     }
 
-    public Result(String text, String translation, Boolean isFavour) {
+    public Result(String text, String translation, Boolean isFavour, String direction) {
         this.text = text;
         this.translation = translation;
         this.isFavour = isFavour;
+        this.direction = direction;
     }
 
     public String getText() {
@@ -47,5 +50,13 @@ public class Result extends RealmObject {
 
     public void setFavour(Boolean favour) {
         isFavour = favour;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
     }
 }

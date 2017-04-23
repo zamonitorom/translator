@@ -18,19 +18,35 @@ public class HistoryViewModel extends BaseObservable {
     @Bindable
     public ObservableArrayList<ItemHistoryViewModel> items;
 
-    public HistoryViewModel() {
+    public HistoryViewModel(Boolean showAll) {
         items = new ObservableArrayList<>();
         repository = new DataRepository();
-        for (Result r:repository.getAll()) {
+        if (showAll) {
+            showAll();
+        }else {
+            showFavour();
+        }
+    }
+
+    private void showFavour() {
+        for (Result r : repository.getAll()) {
+            if(r.getFavour()) {
+                ItemHistoryViewModel i = new ItemHistoryViewModel();
+                i.setTranslation(r.getTranslation());
+                i.setFavour(r.getFavour());
+                i.setText(r.getText());
+                items.add(i);
+            }
+        }
+    }
+
+    private void showAll() {
+        for (Result r : repository.getAll()) {
             ItemHistoryViewModel i = new ItemHistoryViewModel();
             i.setTranslation(r.getTranslation());
             i.setFavour(r.getFavour());
             i.setText(r.getText());
             items.add(i);
         }
-    }
-
-    public void showAll(){
-
     }
 }

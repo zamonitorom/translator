@@ -10,19 +10,23 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import ru.mobilization.demo.translator.Models.TranslatorResponse;
+import ru.mobilization.demo.translator.Models.Result;
+import ru.mobilization.demo.translator.Utils.MyObservableString;
 import rx.Observable;
+import rx.Subscriber;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by kyupetrov on 21.04.2017.
  */
 
-public class DataService {
+public class DataService implements IDataService {
     private final String TAG = "DataService";
 
     private Retrofit retrofit;
 
     private Api api;
+    private IResultRepository repository;
 
     public DataService() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
@@ -40,15 +44,33 @@ public class DataService {
                 .build();
 
         api = retrofit.create(Api.class);
+        repository = new DataRepository();
     }
 
-    public Observable<TranslatorResponse> getWord(String codeFrom, String codeTo, String s) {
-        HashMap<String, String> query = new HashMap<>();
-        query.put("lang", codeFrom + "-" + codeTo);
-        query.put("key", "trnsl.1.1.20170420T144606Z.543f8a29067f6714.5bd2c9ea2764197909d38cb0548292aa34b6adfb");
-        query.put("text", s);
-        Log.d(TAG, "getWord");
-        HashMap<String, String> field = new HashMap<>();
-        return api.getTranslate(query, field);
+    public Observable<String> getWord(String codeFrom, String codeTo, String s) {
+        return Observable.create(subscriber -> {
+            Result result = repository.Get(s);
+            final String[] response = new String[1];
+            if (result == null) {
+                HashMap<String, String> query = new HashMap<>();
+                query.put("lang", codeFrom + "-" + codeTo);
+                query.put("key", "trnsl.1.1.20170420T144606Z.543f8a29067f6714.5bd2c9ea2764197909d38cb0548292aa34b6adfb");
+                query.put("text", s);
+                Log.d(TAG, "getWord");
+                HashMap<String, String> field = new HashMap<>();
+                api.getTranslate(query, field)
+                        .subscribeOn(Schedulers.newThread())
+                        .subscribe(translatorResponse -> {
+                            response[0] = translatorResponse.getText();
+                        }, throwable -> {
+                        }, () -> {
+                            repository.Add(s, response[0], false);
+                            subscriber.onNext(response[0]);
+                        });
+            } else {
+                subscriber.onNext(result.getTranslation());
+            }
+        });
+
     }
 }

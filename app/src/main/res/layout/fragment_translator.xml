@@ -17,22 +17,39 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="5dp">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="@{translatorVM.langFrom.title}" />
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{translatorVM.langFrom.title}"
+                    android:layout_gravity="center_vertical"/>
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#00FFFFFF"
+                    android:rotation="@{translatorVM.isChangingFrom? 180:0}"
+                    app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp"
+                    app:onClick="@{translatorVM::clickFrom}"/>
+            </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:visibility="@{translatorVM.isChangingFrom? View.VISIBLE: View.GONE}"
+
                 app:itemLayout="@{@layout/item_language}"
                 app:items="@{translatorVM.languagesFrom}"
                 app:layoutManager="@{LayoutManagers.grid(1,0,false)}"
@@ -42,24 +59,49 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
+                android:hint="@string/hint"
                 app:binding="@{translatorVM.textFrom}" />
 
-            <ImageButton
+            <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:rotation="90"
-                app:srcCompat="@drawable/ic_settings_ethernet_black_24dp" />
+                android:layout_gravity="center_horizontal">
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{!translatorVM.isProcessing? View.VISIBLE: View.GONE}"
+                    app:srcCompat="@drawable/ic_swap_vert_black_36dp"
+                    app:onClick="@{translatorVM::clickChange}"/>
+                <ProgressBar
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="@{translatorVM.isProcessing? View.VISIBLE: View.GONE}"/>
+            </FrameLayout>
 
-            <TextView
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="@{translatorVM.langTo.title}" />
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{translatorVM.langTo.title}"
+                    android:layout_gravity="center_vertical"/>
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#00FFFFFF"
+                    android:rotation="@{translatorVM.isChangingFrom? 180:0}"
+                    app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp"
+                    app:onClick="@{translatorVM::clickTo}"/>
+            </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:visibility="@{translatorVM.isChangingTo? View.VISIBLE: View.GONE}"
                 app:itemLayout="@{@layout/item_language}"
                 app:items="@{translatorVM.languagesTo}"
                 app:layoutManager="@{LayoutManagers.grid(1,0,false)}"

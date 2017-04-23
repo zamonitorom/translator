@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import ru.mobilization.demo.translator.R;
+import ru.mobilization.demo.translator.Utils.ContextUtill;
 import ru.mobilization.demo.translator.Views.Fragments.FavouritesFragment;
 import ru.mobilization.demo.translator.Views.Fragments.HistoryFragment;
 import ru.mobilization.demo.translator.Views.Fragments.TranslatorFragment;
@@ -42,10 +43,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ContextUtill.SetTopContext(this);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container, new TranslatorFragment()).commit();
+
     }
 
 }

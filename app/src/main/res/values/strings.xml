@@ -3,4 +3,6 @@
     <string name="title_translate">Переводчик</string>
     <string name="title_history">История</string>
     <string name="title_favourites">Избранное</string>
+    <string name="hint">Enter the word</string>
+    <string name="translation">Translation</string>
 </resources>

@@ -11,9 +11,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import ru.mobilization.demo.translator.Models.Result;
-import ru.mobilization.demo.translator.Utils.MyObservableString;
 import rx.Observable;
-import rx.Subscriber;
 import rx.schedulers.Schedulers;
 
 /**
@@ -49,7 +47,7 @@ public class DataService implements IDataService {
 
     public Observable<String> getWord(String codeFrom, String codeTo, String s) {
         return Observable.create(subscriber -> {
-            Result result = repository.Get(s);
+            Result result = repository.get(s);
             final String[] response = new String[1];
             if (result == null) {
                 HashMap<String, String> query = new HashMap<>();
@@ -64,7 +62,7 @@ public class DataService implements IDataService {
                             response[0] = translatorResponse.getText();
                         }, throwable -> {
                         }, () -> {
-                            repository.Add(s, response[0], false);
+                            repository.add(s, response[0], false);
                             subscriber.onNext(response[0]);
                         });
             } else {

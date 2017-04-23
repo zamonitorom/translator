@@ -6,6 +6,10 @@
 
         <import type="android.view.View" />
 
+        <import type="ru.mobilization.demo.translator.Utils.Variables" />
+
+        <import type="ru.mobilization.demo.translator.Utils.LayoutManagers" />
+
         <variable
             name="historyVM"
             type="ru.mobilization.demo.translator.ViewModels.HistoryViewModel" />

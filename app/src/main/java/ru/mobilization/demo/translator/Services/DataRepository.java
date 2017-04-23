@@ -2,6 +2,9 @@ package ru.mobilization.demo.translator.Services;
 
 import android.app.Activity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.realm.Realm;
 import ru.mobilization.demo.translator.Models.Result;
 import ru.mobilization.demo.translator.Utils.ContextUtill;
@@ -19,7 +22,7 @@ public class DataRepository implements IResultRepository{
     }
 
     @Override
-    public void Add(String text, String translation, Boolean isFavour) {
+    public void add(String text, String translation, Boolean isFavour) {
         realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         Result result1 = realm.createObject(Result.class,text);
@@ -29,7 +32,7 @@ public class DataRepository implements IResultRepository{
     }
 
     @Override
-    public void Update(String text, String result, Boolean isFavour) {
+    public void update(String text, String result, Boolean isFavour) {
         realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         Result result1 = realm.where(Result.class).equalTo("text",text).findFirst();
@@ -39,7 +42,7 @@ public class DataRepository implements IResultRepository{
     }
 
     @Override
-    public void Delete(String text) {
+    public void delete(String text) {
         realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         Result result = realm.where(Result.class).equalTo("text",text).findFirst();
@@ -48,10 +51,20 @@ public class DataRepository implements IResultRepository{
     }
 
     @Override
-    public Result Get(String text) {
+    public Result get(String text) {
         realm = Realm.getDefaultInstance();
         realm.beginTransaction();
+        Result answer = realm.where(Result.class).equalTo("text",text).findFirst();
         realm.commitTransaction();
-        return realm.where(Result.class).equalTo("text",text).findFirst();
+        return answer;
+    }
+
+    @Override
+    public List<Result> getAll() {
+        realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        ArrayList list = new ArrayList(realm.where(Result.class).findAll());
+        realm.commitTransaction();
+        return list;
     }
 }

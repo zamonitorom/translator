@@ -56,12 +56,18 @@ public class BindingViewAdapters {
             }
         });
 
-        String newValue = observableString.get();
-        if (!view.getText().toString().equals(newValue)) {
-            view.setText(newValue);
+        if (observableString != null) {
+            String newValue = observableString.get();
+            if (!view.getText().toString().equals(newValue)) {
+                view.setText(newValue);
+            }
         }
 
     }
 
+    @BindingAdapter("imageResource")
+    public static void setImageResource(ImageView imageView, int resource) {
+        imageView.setImageResource(resource);
+    }
 
 }

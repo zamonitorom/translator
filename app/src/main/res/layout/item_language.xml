@@ -8,7 +8,7 @@
 
         <variable
             name="item"
-            type="ru.mobilization.demo.translator.ViewModels.ItemLangViewModel" />
+            type="ru.demo.translator.viewmodels.ItemLangViewModel" />
     </data>
 
     <LinearLayout

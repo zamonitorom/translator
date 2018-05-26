@@ -9,7 +9,7 @@
         <import type="ru.mobilization.demo.translator.R" />
         <variable
             name="item"
-            type="ru.mobilization.demo.translator.ViewModels.ItemHistoryViewModel" />
+            type="ru.demo.translator.viewmodels.ItemHistoryViewModel" />
     </data>
 
     <LinearLayout

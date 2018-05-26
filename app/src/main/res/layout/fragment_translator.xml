@@ -6,13 +6,13 @@
 
         <import type="android.view.View" />
 
-        <import type="ru.mobilization.demo.translator.Utils.Variables" />
+        <import type="ru.demo.translator.utils.Variables" />
 
-        <import type="ru.mobilization.demo.translator.Utils.LayoutManagers" />
+        <import type="ru.demo.translator.utils.LayoutManagers" />
 
         <variable
             name="translatorVM"
-            type="ru.mobilization.demo.translator.ViewModels.TranslatorViewModel" />
+            type="ru.demo.translator.viewmodels.TranslatorViewModel" />
     </data>
 
     <ScrollView
@@ -55,7 +55,7 @@
                 app:layoutManager="@{LayoutManagers.grid(1,0,false)}"
                 app:variable="@{Variables.Item}" />
 
-            <ru.mobilization.demo.translator.Utils.ExtendedEditText
+            <ru.demo.translator.utils.ExtendedEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"

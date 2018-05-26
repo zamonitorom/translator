@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="ru.mobilization.demo.translator.Views.MainActivity">
+    tools:context="ru.mobilization.demo.translator.ru.demo.demo.translator.Views.MainActivity">
 
     <RelativeLayout
         android:id="@+id/container"
